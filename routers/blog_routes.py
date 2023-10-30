@@ -29,7 +29,7 @@ def get_post_by_id(id: str):
 def get_all_blog_posts():
     return articles
 
-@blog_post_router.get("/{id}")
+@blog_post_router.get("/{id}", status_code=200)
 def get_blog_post_by_id(id: str):
     post = get_post_by_id(id)
     if post:
@@ -52,7 +52,7 @@ def create_blog_post(post: BlogPostBase):
 
 
 #Edit an existing blog post.
-@blog_post_router.put("/posts/{id}")
+@blog_post_router.put("/posts/{id}", status_code=201)
 def update_blog_post(id: str, update_post: EditBlogPost):
     post = get_blog_post_by_id(id)
     if not post:
@@ -65,4 +65,20 @@ def update_blog_post(id: str, update_post: EditBlogPost):
 
     return{"message": "Article Updated succesfully"}
 
+
+#Delete a blog post
+@blog_post_router.delete("/posts/{id}", status_code=200)
+def delete_post(id: str):
+    blog_post = get_blog_post_by_id(id)
+    if not blog_post:
+        return{"error": "Post not found"}
     
+    post_index = None
+
+    for i, post in enumerate(articles):
+        if post.id == id:
+            post_index = i
+            break
+    
+    articles.pop(post_index)
+    return {"message": "Post deleted succesfully!"}
