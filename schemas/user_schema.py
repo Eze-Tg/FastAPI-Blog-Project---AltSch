@@ -17,7 +17,8 @@ class CreateUser(BaseModel):
     email: str
     first_name: str
     last_name: str
-    gender: Gender
+    username: str
+    password: str
 
 
 class User(BaseModel):

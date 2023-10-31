@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from schemas.blog_post_schema import BlogPostBase, CreateBlogPost, EditBlogPost
 from datetime import datetime
 from uuid import UUID, uuid4
@@ -71,7 +71,9 @@ def update_blog_post(id: str, update_post: EditBlogPost):
 def delete_post(id: str):
     blog_post = get_blog_post_by_id(id)
     if not blog_post:
-        return{"error": "Post not found"}
+        raise HTTPException(
+            status_code=404, detail="Book not found"
+        )
     
     post_index = None
 

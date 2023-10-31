@@ -18,3 +18,8 @@ class CreateBlogPost(BlogPostBase):
 
 class EditBlogPost(BlogPostBase):
     pass
+
+
+class Responce(BlogPostBase):
+    pass
+
