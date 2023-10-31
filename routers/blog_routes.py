@@ -8,13 +8,18 @@ blog_post_router = APIRouter()
 
 
 articles = [
-    # CreateBlogPost(title= "Ade goes to sch", 
-    #                body= "We shall be discussing the adventures of ade as he goes", 
-    #                author= "ohiri the man", 
-    #                created_at = datetime.now()),
-    # CreateBlogPost(title= "Ola goes to sch", 
-    #                body= "We shall be discussing the adventures of ola as he goes", 
-    #                author= "Paul the man", created_at=datetime.now())
+    CreateBlogPost(
+        title= "Ade goes to sch", 
+        body= "We shall be discussing the adventures of ade as he goes", 
+        author= "ohiri the man", 
+        created_at = datetime.now(),
+        id=uuid4()),
+    CreateBlogPost(
+        title= "Ola goes to sch", 
+        body= "We shall be discussing the adventures of ola as he goes", 
+        author= "Paul the man", 
+        created_at=datetime.now(),
+        id=uuid4())
     ]
 
 

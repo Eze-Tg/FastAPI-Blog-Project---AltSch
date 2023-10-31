@@ -13,7 +13,7 @@ class BlogPostBase(BaseModel):
 
 
 class CreateBlogPost(BlogPostBase):
-    id: str
+    id: Optional[UUID] = uuid4()
 
 
 class EditBlogPost(BlogPostBase):

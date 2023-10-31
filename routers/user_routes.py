@@ -5,25 +5,6 @@ from uuid import uuid4,UUID
 
 users_routers = APIRouter()
 
-# db: list[User] = [
-#     User(
-#         id=uuid4(), 
-#         email = "yakubsjohn@mail.com",
-#         first_name="Johnson", 
-#         last_name="Yakubu", 
-#         Gender="male"
-#         ),
-#         User(
-#         id=uuid4(), 
-#         email = "ritaevenling@mail.com",
-#         first_name="Rita", 
-#         last_name="Eveline", 
-#         Gender="female"
-#         ),
-# ]
-
-
-
 
 db = [CreateUser(id = uuid4(), email= "theguys@gmail.com", username="Gee", first_name="Glan", last_name="Kemute", password="Mybugpass"), 
       CreateUser(id= uuid4(), email= "Emma@mail.com", username="hiri", first_name="Emmanu", last_name="Ohiri", password="@password"),
