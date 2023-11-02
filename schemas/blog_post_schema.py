@@ -8,12 +8,13 @@ class BlogPostBase(BaseModel):
     title: str
     body: str
     author: str
-    published : bool = True
-    created_at: datetime
+    
 
 
 class CreateBlogPost(BlogPostBase):
     id: Optional[UUID] = uuid4()
+    created_at: Optional[datetime] = datetime.now()
+    published : bool = True
 
 
 class EditBlogPost(BlogPostBase):

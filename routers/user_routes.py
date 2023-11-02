@@ -51,9 +51,11 @@ async def login(
     return{"message": "Username or password incorrect!"}
 
 
+#Get all users
 @users_routers.get("/")
 def fetch_users():
     return db
+    
 
 #Delete user
 @users_routers.delete("/{user_id}")

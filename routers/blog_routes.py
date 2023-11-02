@@ -26,7 +26,7 @@ articles = [
 def get_post_by_id(id: str):
     for post in articles:
         if post.id == id:
-              return post
+            return post
         return{"message": f"No post with id {id}"}
 
 
@@ -44,12 +44,10 @@ def get_blog_post_by_id(id: str):
 #create a new blog post
 @blog_post_router.post("/posts", status_code=201)
 def create_blog_post(post: BlogPostBase):
-    # post.title = title
-    # post.body = body
-    # post.author = author
-
-    new_post = CreateBlogPost(id=str(UUID(int=len(articles) +1)), 
-                              **post.dict())
+    #get user id
+    #check if user exist, if not throw error
+    #if user exist, create blog
+    new_post = CreateBlogPost(id=str(UUID(int=len(articles) +1)), created_at=datetime.now(), published=True, **post.dict()) #Next task is to assigned author to user.id gotten from user route
 
 
     articles.append(new_post)
@@ -59,6 +57,9 @@ def create_blog_post(post: BlogPostBase):
 #Edit an existing blog post.
 @blog_post_router.put("/posts/{id}", status_code=201)
 def update_blog_post(id: str, update_post: EditBlogPost):
+        #get user id
+    #check if user exist, if not throw error
+    #if user exist, create blog
     post = get_blog_post_by_id(id)
     if not post:
         return{"error": "No article with that ID!!"}
@@ -73,6 +74,9 @@ def update_blog_post(id: str, update_post: EditBlogPost):
 
 #Delete a blog post
 @blog_post_router.delete("/posts/{id}", status_code=200)
+        #get user id
+    #check if user exist, if not throw error
+    #if user exist, create blog
 def delete_post(id: str):
     blog_post = get_blog_post_by_id(id)
     if not blog_post:
