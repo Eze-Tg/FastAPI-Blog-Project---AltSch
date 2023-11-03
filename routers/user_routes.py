@@ -1,7 +1,8 @@
-from fastapi import APIRouter, Form
+from fastapi import APIRouter, Form, status, HTTPException
 from typing import Annotated
 from schemas.user_schema import User, CreateUser
 from uuid import uuid4,UUID
+from utils import get_hashed_password
 
 users_routers = APIRouter()
 
@@ -20,7 +21,7 @@ db = [CreateUser(id = uuid4(), email= "theguys@gmail.com", username="Gee", first
 
 
 #Register new User
-@users_routers.post("/signup/")
+@users_routers.post("/signup/", summary="Create New User")
 async def signup(
     username: Annotated[str, Form()],
     firstname: Annotated[str, Form()],
@@ -28,13 +29,27 @@ async def signup(
     email: Annotated[str, Form()],
     password: Annotated[str, Form()],
 ):
+    #querrying the db to check if user already exist
+    for user in db:
+        if user.username == username:
+            raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="User with this email already exist"
+        )
+
+    if user is not None:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="User with this email already exist"
+        )
+
     new_user = CreateUser(
         id=str(UUID(int=len(db) +1)),
         username=username, 
         first_name=firstname, 
         last_name=lastname,
         email=email,
-        password=password)
+        password=get_hashed_password(password))
     db.append(new_user)
     return{"message": "Welcome", "Your username is": new_user.username}
 
