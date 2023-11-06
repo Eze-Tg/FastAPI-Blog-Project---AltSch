@@ -24,3 +24,7 @@ class EditBlogPost(BlogPostBase):
 class Responce(BlogPostBase):
     pass
 
+class BlogRequestBody(BaseModel):
+    title: str
+    body: str
+

@@ -19,6 +19,9 @@ class CreateUser(BaseModel):
     last_name: str
     username: str
     password: str
+    access_token: Optional[str] = None
+
+
 
 
 class User(BaseModel):
@@ -30,4 +33,6 @@ class User(BaseModel):
 class UserLogin(BaseModel):
     email:str
     password: str
+    access_token: Optional[str] = None
+
 

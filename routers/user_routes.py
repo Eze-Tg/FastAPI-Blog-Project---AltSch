@@ -6,16 +6,15 @@ from schemas.user_schema import User, CreateUser
 from uuid import uuid4,UUID
 from utils import (get_hashed_password, 
                    create_access_token, 
-                   create_refresh_token, 
                    verify_password)
 
 
 users_routers = APIRouter()
 
 
-db = [CreateUser(id = uuid4(), email= "theguys@gmail.com", username="Gee", first_name="Glan", last_name="Kemute", password="Mybugpass"), 
-      CreateUser(id= uuid4(), email= "Emma@mail.com", username="hiri", first_name="Emmanu", last_name="Ohiri", password="@password"),
-      CreateUser(id= uuid4(), email="badguy@mail.com", username="badguy", first_name="Bad", last_name="Guy", password="wosky")]
+db = [CreateUser(id = uuid4(), email= "theguys@gmail.com", username="Gee", first_name="Glan", last_name="Kemute", password="Mybugpass", access_token=""), 
+      CreateUser(id= uuid4(), email= "Emma@mail.com", username="hiri", first_name="Emmanu", last_name="Ohiri", password="@password", access_token=""),
+      CreateUser(id= uuid4(), email="badguy@mail.com", username="badguy", first_name="Bad", last_name="Guy", password="wosky", access_token="")]
 
 
 
@@ -24,6 +23,13 @@ def find_username(database, input_username):
         if item.username == input_username:
             return item
     return{"message" : "user not found!"}
+
+def get_username_from_token(input_token):
+    for item in db:
+        if item.access_token == input_token:
+            return item.username
+    return False
+
 
 # for items in db:
 #         print(items.email)
@@ -86,7 +92,10 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()):
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="Incorrect email or password")
         # if form_data.password == user_pass:
-        return{"Correct Details, User is logged in!"}
+        token = create_access_token(username_check.id)
+        username_check.access_token = token
+        return {"message" : "Correct Details, User is logged in!", "token": token }
+
         
         
 
